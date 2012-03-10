@@ -30,7 +30,6 @@ $file_list =
     array_merge(
         glob(Config::WATCH_DIR_PATH . '*' . DS . '*.pdf'),
         glob(Config::WATCH_DIR_PATH . '*' . DS . '*' . DS . '*.pdf'));
-var_dump($file_list);
 foreach ($file_list as $file)
 {
     if (file_exists($file) && is_file($file))
