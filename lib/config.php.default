@@ -1,0 +1,14 @@
+<?php
+define('DS', DIRECTORY_SEPARATOR);
+class Config
+{
+    const PDF_EXPORT_CMD    = 'gs -dSAFER -dBATCH -dNOPAUSE -sDEVICE=jpeg -dJPEGQ=100  -dQFactor=1.0 -dDisplayFormat=16#30804 -r150 -sOutputFile="%s%%04d.jpeg" "%s"';
+    const LOCK_FILE_PATH    = '/tmp/pdf_optimizer.lock';
+    const WATCH_DIR_PATH    = '/tmp/pdfo/pdf/';
+    const TEMP_DIR_PATH     = '/tmp/pdfo/pdf_tmp/';
+    const OUTPUT_DIR_PATH   = '/tmp/pdfo/pdf_done/';
+    const PDF_CREATE_CMD    = 'convert "%s*.jpeg" "%s"';
+
+    const IMAGE_FILE_FORMAT = '%04d.jpeg'; // PDF_EXPORT_CMD で作るファイル名と同じにしてください。
+
+}
