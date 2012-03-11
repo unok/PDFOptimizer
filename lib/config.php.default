@@ -8,6 +8,6 @@ class Config
     const OUTPUT_DIR_PATH   = '/tmp/pdfo/pdf_done/';
     const PDF_CREATE_CMD    = 'convert "%s*.jpeg" "%s"';
 
-    const IMAGE_FILE_FORMAT = '%04d.jpeg'; // PDF_EXPORT_CMD で作るファイル名と同じにしてください。
-
+    const IMAGE_FILE_FORMAT = '%04d.jpeg';  // PDF_EXPORT_CMD で作るファイル名と同じにしてください。
+    const COPY_INTERVAL     = 60;           // 指定した秒数以前にコピーされたものが処理対象
 }

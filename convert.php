@@ -34,6 +34,13 @@ foreach ($file_list as $file)
 {
     if (file_exists($file) && is_file($file))
     {
+        $stat = stat($file);
+        $time = max($stat['ctime'], $stat['mtime']);
+        if ((time() - $time) < Config::COPY_INTERVAL)
+        {
+            echo $file . "...SKIP\n";
+            continue;
+        }
         convert($file);
     }
 }
@@ -72,6 +79,29 @@ function convert($file)
     echo $convert_cmd . "\n";
     system($CMD);
     $file_list = glob($TEMP_DIR . '*.jpeg');
+    // -1 等の表記を通常ページに変更
+    if (count($exclude))
+    {
+        $file_count = count($file_list);
+        foreach ($exclude as $idx => $page)
+        {
+            if ($page < 0)
+            {
+                $exclude[$idx] = $file_count + $page + 1;
+            }
+        }
+    }
+    if (count($include))
+    {
+        $file_count = count($file_list);
+        foreach ($include as $idx => $page)
+        {
+            if ($page < 0)
+            {
+                $include[$idx] = $file_count + $page + 1;
+            }
+        }
+    }
     if (count($include))
     {
         foreach ($include as $page)
