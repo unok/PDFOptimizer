@@ -53,9 +53,9 @@ function convert($file)
     $include = array();
     $exclude = array();
     $convert_cmd = '';
-    if (preg_match('/^(exclude(_\d+)*|(\d+)(_\d+)*)$/', $parts[count($parts) - 1]))
+    if (preg_match('/^(exclude(_-?\d+)*|(-?\d+)(_-?\d+)*)$/', $parts[count($parts) - 1]))
     {
-        if (preg_match('/^exclude((_\d+)+)$/', $parts[count($parts) - 1], $m))
+        if (preg_match('/^exclude((_-?\d+)+)$/', $parts[count($parts) - 1], $m))
         {
             $exclude = preg_split('/_/', $m[1]);
         }
