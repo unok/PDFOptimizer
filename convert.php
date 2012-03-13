@@ -77,7 +77,15 @@ function convert($file)
     echo $CMD . "\n";
     $convert_cmd = preg_replace('/__FILE__/', '"%1$s"', $convert_cmd);
     echo $convert_cmd . "\n";
-    system($CMD);
+    $output = array();
+    $ret = 0;
+    exec($CMD, $output, $ret);
+    if ($ret > 0)
+    {
+        array_unshift($output, "ERROR: Cannot split Jpeg: " . $CMD);
+        file_put_contents($file . ".log", $output);
+        die;
+    }
     $file_list = glob($TEMP_DIR . '*.jpeg');
     // -1 等の表記を通常ページに変更
     if (count($exclude))
@@ -109,7 +117,13 @@ function convert($file)
             $page_file = $TEMP_DIR . sprintf(Config::IMAGE_FILE_FORMAT, $page);
             $CONVERT_CMD = sprintf($convert_cmd, addslashes($page_file));
             echo $CONVERT_CMD . "\n";
-            system($CONVERT_CMD);
+            exec($CONVERT_CMD, $output, $ret);
+            if ($ret > 0)
+            {
+                array_unshift($output, "ERROR: Cannot apply command: " . $CONVERT_CMD);
+                file_put_contents($file . ".log", $output);
+                die;
+            }
         }
     }
     else
@@ -124,13 +138,25 @@ function convert($file)
             }
             $CONVERT_CMD = sprintf($convert_cmd, addslashes($page_file));
             echo $CONVERT_CMD . "\n";
-            system($CONVERT_CMD);
+            exec($CONVERT_CMD, $output, $ret);
+            if ($ret > 0)
+            {
+                array_unshift($output, "ERROR: Cannot apply command: " . $CONVERT_CMD);
+                file_put_contents($file . ".log", $output);
+                die;
+            }
         }
     }
     $CREATE_PDF_CMD = sprintf(Config::PDF_CREATE_CMD, addslashes($TEMP_DIR),
         addslashes(Config::OUTPUT_DIR_PATH . $pdf_file_name));
     echo $CREATE_PDF_CMD . "\n";
-    system($CREATE_PDF_CMD);
+    exec($CREATE_PDF_CMD, $output, $ret);
+    if ($ret > 0)
+    {
+        array_unshift($output, "ERROR: Cannot create pdf: " . $CREATE_PDF_CMD);
+        file_put_contents($file . ".log", $output);
+        die;
+    }
     reset($file_list);
     foreach ($file_list as $page_file)
     {
