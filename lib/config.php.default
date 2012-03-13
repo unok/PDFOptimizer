@@ -2,7 +2,7 @@
 define('DS', DIRECTORY_SEPARATOR);
 class Config
 {
-    const PDF_EXPORT_CMD    = 'gs -dSAFER -dBATCH -dNOPAUSE -sDEVICE=jpeg -dJPEGQ=100  -dQFactor=1.0 -dDisplayFormat=16#30804 -r150 -sOutputFile="%s%%04d.jpeg" "%s"';
+    const PDF_EXPORT_CMD    = 'gs -dSAFER -dBATCH -dNOPAUSE -sDEVICE=jpeg -dJPEGQ=100 -dQFactor=1.0 -dDisplayFormat=16#30804 -r600 -sOutputFile="%s%%04d.jpeg" "%s"';
     const WATCH_DIR_PATH    = '/tmp/pdfo/pdf/';
     const TEMP_DIR_PATH     = '/tmp/pdfo/pdf_tmp/';
     const OUTPUT_DIR_PATH   = '/tmp/pdfo/pdf_done/';

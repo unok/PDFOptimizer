@@ -75,6 +75,7 @@ function convert($file)
     rename($file, $TEMP_DIR . $pdf_file_name);
     $CMD = sprintf(Config::PDF_EXPORT_CMD, $TEMP_DIR, $TEMP_DIR . $pdf_file_name);
     echo $CMD . "\n";
+    $convert_cmd = preg_replace('/%/', '%%', $convert_cmd);
     $convert_cmd = preg_replace('/__FILE__/', '"%1$s"', $convert_cmd);
     echo $convert_cmd . "\n";
     $output = array();
